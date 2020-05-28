@@ -67,7 +67,7 @@ int getMinesSinceLastCheck(struct Data *data) {
 void printOpData(struct Data *data) {
 	fprintf(stdout, "You currently have %d coin%c in your wallet.\n", data->coins, getPlural(data->coins));
 	fprintf(stdout, "%d bot%c mined %d time%c since you last checked.\n", data->bots, getPlural(data->bots),getMinesSinceLastCheck(data),getPlural(getMinesSinceLastCheck(data)));
-	fprintf(stdout, "Your processor has %d core%c.\n", data->processors, getPlural(data->processors));
+	fprintf(stdout, "Your processor has %d core%c and a power rating of %d.\n", data->processors, getPlural(data->processors), PROCESSOR_POWER);
 };
 
 void printNewLine() {
