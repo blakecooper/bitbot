@@ -7,7 +7,7 @@ void mine(struct Data *data, int number_of_passes) {
 	srand(time(NULL));
 	int coins_mined = 0;
 
-	for (int i = 0; i < number_of_passes; i++) {
+	for (int i = 0; i < number_of_passes * data->bots; i++) {
 		int hash = rand() % NUMBER_OF_POSSIBLE_HASHES;
 		int processor_guess = rand() % PROCESSOR_POWER;
 
@@ -18,8 +18,7 @@ void mine(struct Data *data, int number_of_passes) {
 
 	if (coins_mined > 0) {
 		data->coins += coins_mined;
-		printSuccessfulMiningConfirmation();
-		printCurrentCoinsStored(data);
+		printSuccessfulMiningConfirmation(coins_mined);
 	} else {
 		printFailedMiningConfirmation();
 	};
@@ -31,7 +30,15 @@ int main (int argc, const char* argv[]) {
 	
 	readSaveData (savefile, data);
 
-	mine(data, data->processors);
+	mine(data, getMinesSinceLastCheck(data));
+	printNewLine();
+
+	printOpData(data);
+	printNewLine();
+
+	data->last_login = time(NULL);
 
 	writeSaveData(savefile, data);
+
+	return 0;
 };

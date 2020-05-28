@@ -1,14 +1,10 @@
 struct Data {
 	int processors;
 	int coins;
+	int bots;
+	time_t last_login;
 };
 
-//Total number of items that need to be saved
-const int TOTAL_DATA = 2;
-
-//Indeces of data in save file
-const int PROCESSORS = 0;
-const int COINS = 1;
 
 //How precise the processor is at finding the hash (lower number is better)
 const int PROCESSOR_POWER = 10;
@@ -16,12 +12,25 @@ const int PROCESSOR_POWER = 10;
 //How many possible hashes are there (more means harder to mine)
 const int NUMBER_OF_POSSIBLE_HASHES = 2;
 
+//How frequently do bots mine?
+const int SECONDS_BETWEEN_BOTS_MINING = 10;
+
+char getPlural(int number) {
+	if (number != 1) {
+		return 's';
+	} else {
+		return '\0';
+	};
+};
+
 void readSaveData(FILE *savefile, struct Data *data) {
 	savefile = fopen("savefile", "rb");
 
 	if (!savefile) {
 		data->processors = 1;
 		data->coins = 0;	
+		data->bots = 1;
+		data->last_login = time(NULL);
 	} else {
 		fread ((void *) data, sizeof(struct Data), 1, savefile);
 	};
@@ -32,8 +41,8 @@ void writeSaveData(FILE *savefile, struct Data *data) {
 	fwrite((void *) data, sizeof(struct Data), 1, savefile);
 };
 
-void printSuccessfulMiningConfirmation() {
-	fprintf(stdout, "You successfully mined a coin!\n");
+void printSuccessfulMiningConfirmation(int coins_mined) {
+	fprintf(stdout, "You successfully mined %d coin%c!\n", coins_mined, getPlural(coins_mined));
 };
 
 void printCurrentCoinsStored(struct Data *data) {
@@ -45,5 +54,23 @@ void printNumberOfProcessors(struct Data *data) {
 };
 
 void printFailedMiningConfirmation() {
-	fprintf(stdout, "Mining unsuccessful.\n");
+	fprintf(stdout, "No new coins mined.\n");
 };
+
+int getMinesSinceLastCheck(struct Data *data) {
+	time_t now = time(NULL);
+	double seconds_elapsed = difftime(now, data->last_login);
+
+	return (seconds_elapsed / SECONDS_BETWEEN_BOTS_MINING);
+};
+
+void printOpData(struct Data *data) {
+	fprintf(stdout, "You currently have %d coin%c in your wallet.\n", data->coins, getPlural(data->coins));
+	fprintf(stdout, "%d bot%c mined %d time%c since you last checked.\n", data->bots, getPlural(data->bots),getMinesSinceLastCheck(data),getPlural(getMinesSinceLastCheck(data)));
+	fprintf(stdout, "Your processor has %d core%c.\n", data->processors, getPlural(data->processors));
+};
+
+void printNewLine() {
+	fprintf(stdout, "\n");
+};
+
