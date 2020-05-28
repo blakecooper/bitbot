@@ -3,7 +3,7 @@
 #include <time.h>
 #include "macros.h"
 
-void mine(int *data, int number_of_passes) {
+void mine(struct Data *data, int number_of_passes) {
 	srand(time(NULL));
 	int coins_mined = 0;
 
@@ -17,7 +17,7 @@ void mine(int *data, int number_of_passes) {
 	};
 
 	if (coins_mined > 0) {
-		data[COINS] += coins_mined;
+		data->coins += coins_mined;
 		printSuccessfulMiningConfirmation();
 		printCurrentCoinsStored(data);
 	} else {
@@ -27,11 +27,11 @@ void mine(int *data, int number_of_passes) {
 
 int main (int argc, const char* argv[]) {
 	FILE *savefile;
-	int *data = (int *) malloc(TOTAL_DATA * sizeof(int));
+	struct Data *data = (struct Data *) malloc(sizeof(struct Data));
 	
 	readSaveData (savefile, data);
 
-	mine(data, data[PROCESSORS]);
+	mine(data, data->processors);
 
 	writeSaveData(savefile, data);
 };

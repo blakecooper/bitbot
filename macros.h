@@ -1,3 +1,8 @@
+struct Data {
+	int processors;
+	int coins;
+};
+
 //Total number of items that need to be saved
 const int TOTAL_DATA = 2;
 
@@ -11,32 +16,32 @@ const int PROCESSOR_POWER = 10;
 //How many possible hashes are there (more means harder to mine)
 const int NUMBER_OF_POSSIBLE_HASHES = 2;
 
-void readSaveData(FILE *savefile, int *data) {
+void readSaveData(FILE *savefile, struct Data *data) {
 	savefile = fopen("savefile", "rb");
 
 	if (!savefile) {
-		data[PROCESSORS] = 1;
-		data[COINS] = 0;	
+		data->processors = 1;
+		data->coins = 0;	
 	} else {
-		fread ((void *) data, sizeof(int), TOTAL_DATA, savefile);
+		fread ((void *) data, sizeof(struct Data), 1, savefile);
 	};
 };
 
-void writeSaveData(FILE *savefile, int *data) {
+void writeSaveData(FILE *savefile, struct Data *data) {
 	savefile = fopen("savefile", "wb");
-	fwrite((void *) data, sizeof(int), TOTAL_DATA, savefile);
+	fwrite((void *) data, sizeof(struct Data), 1, savefile);
 };
 
 void printSuccessfulMiningConfirmation() {
 	fprintf(stdout, "You successfully mined a coin!\n");
 };
 
-void printCurrentCoinsStored(int *data) {
-	fprintf(stdout, "You currently have %d coins in your wallet.\n", data[COINS]);
+void printCurrentCoinsStored(struct Data *data) {
+	fprintf(stdout, "You currently have %d coins in your wallet.\n", data->coins);
 };
 
-void printNumberOfProcessors(int *data) {
-	fprintf(stdout, "You have %d processors total.\n", data[PROCESSORS]);
+void printNumberOfProcessors(struct Data *data) {
+	fprintf(stdout, "You have %d processors total.\n", data->processors);
 };
 
 void printFailedMiningConfirmation() {
