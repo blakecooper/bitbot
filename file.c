@@ -4,7 +4,7 @@
 #include "macros.h"
 
 void readSaveData(FILE *save, struct Data *data) {
-	save = fopen("save", "rb");
+	save = fopen(SAVE_FILE_PATH, "rb");
 
 	if (!save) {
 		data->cores = STARTING_CORES;
@@ -25,7 +25,7 @@ void readSaveData(FILE *save, struct Data *data) {
 };
 
 void writeSaveData(FILE *save, struct Data *data) {
-	save = fopen("save", "wb");
+	save = fopen(SAVE_FILE_PATH, "wb");
 	fwrite((void *) data, sizeof(struct Data), 1, save);
 };
 

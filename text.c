@@ -17,7 +17,11 @@ void printSuccessfulMiningConfirmation(int coins_mined) {
 };
 
 void printCurrentCoinsStored(struct Data *data) {
-	fprintf(stdout, "There are %d coins in your wallet.\n", data->coins);
+	if (getPlural(data->coins) == 's') {
+		fprintf(stdout, "There are %d coins in your wallet.\n", data->coins);
+	} else {
+		fprintf(stdout, "There is %d coin in your wallet.\n", data->coins);
+	};
 };
 
 void printNumberOfProcessors(struct Data *data) {

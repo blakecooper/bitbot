@@ -26,3 +26,6 @@
 
 //How long can the name of a buy option be?
 #define MAX_STRING_LENGTH 32
+
+//Save location
+#define SAVE_FILE_PATH "save"
