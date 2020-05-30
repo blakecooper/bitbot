@@ -2,13 +2,17 @@
 #include <stdio.h>
 
 struct Data {
-	int processors;
+	int cores;
 	int processor_power;
 	int coins;
+	int total_coins_mined;
 	int bots; 
 	int seconds_between_mining;
 	int number_available_hashes;
 	int cost_bitbot;
+	int cost_cores;
+	int cost_power;
+	int cost_speed;
 	time_t last_login;
 };
 

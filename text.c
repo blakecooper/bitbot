@@ -13,15 +13,15 @@ char getPlural(int number) {
 
 
 void printSuccessfulMiningConfirmation(int coins_mined) {
-	fprintf(stdout, "You successfully mined %d coin%c!\n", coins_mined, getPlural(coins_mined));
+	fprintf(stdout, "Your bots mined %d coin%c!\n", coins_mined, getPlural(coins_mined));
 };
 
 void printCurrentCoinsStored(struct Data *data) {
-	fprintf(stdout, "You currently have %d coins in your wallet.\n", data->coins);
+	fprintf(stdout, "There are %d coins in your wallet.\n", data->coins);
 };
 
 void printNumberOfProcessors(struct Data *data) {
-	fprintf(stdout, "You have %d processors total.\n", data->processors);
+	fprintf(stdout, "You have %d processors total.\n", data->cores);
 };
 
 void printFailedMiningConfirmation() {
@@ -29,27 +29,58 @@ void printFailedMiningConfirmation() {
 };
 
 void printOpData(struct Data *data) {
-	fprintf(stdout, "You currently have %d coin%c in your wallet.\n", data->coins, getPlural(data->coins));
-	fprintf(stdout, "%d bot%c mined %d time%c since you last checked.\n", data->bots, getPlural(data->bots),getMinesSinceLastCheck(data),getPlural(getMinesSinceLastCheck(data)));
-	fprintf(stdout, "Your processor has %d core%c and a power rating of %d.\n", data->processors, getPlural(data->processors), data->processor_power);
+	printCurrentCoinsStored(data);
+	fprintf(stdout, "%d bot%c with %d-core processors mined %d time%c since you last checked.\n", data->bots, getPlural(data->bots), data->cores, getMinesSinceLastCheck(data),getPlural(getMinesSinceLastCheck(data)));
 };
 
 void printNewLine() {
 	fprintf(stdout, "\n");
 };
 
-void printNotEnoughBitbot() {
-	fprintf(stdout, "You don't have enough coins to buy a bitbot!\n");
+void printNotEnough() {
+	fprintf(stdout, "You can't afford that!\n");
 };
 
 void printCostBitbot (struct Data *data) {
 	fprintf(stdout, "A bitbot costs %d coin%c\n", data->cost_bitbot, getPlural(data->cost_bitbot));
 };
 
+void printCostUpgrade (struct Data *data) {
+	fprintf(stdout, "Upgrading your processors costs %d coin%c\n", data->cost_cores, getPlural(data->cost_bitbot));
+};
+
+void printCostUpgradePower (struct Data *data) {
+	fprintf(stdout, "Upgrading your processor power costs %d coin%c\n", data->cost_power, getPlural(data->cost_power));
+};
+
+void printCostUpgradeSpeed (struct Data *data) {
+	fprintf(stdout, "Upgrading your processor speed costs %d coin%c\n", data->cost_speed, getPlural(data->cost_speed));
+};
+
 void printBuyConfirmationBitbot() {
-	fprintf(stdout, "Purchase successful.\n");
+	fprintf(stdout, "You bought a bitbot!\n");
 };
 
 void printNumberBots(struct Data *data) {
-	fprintf(stdout, "You currently have %d bots.\n", data->bots);
+	fprintf(stdout, "You currently have %d bot%c.\n", data->bots, getPlural(data->bots));
+};
+
+void printUpgradeConfirmationCores() {
+	fprintf(stdout, "You doubled your processor cores!\n");
+};
+
+void printUpgradeConfirmationPower() {
+	fprintf(stdout, "Your processors are 10 percent more powerful!\n");
+};
+
+void printUpgradeConfirmationSpeed() {
+	fprintf(stdout, "Your processors are 10 percent faster!\n");
+};
+
+void printProcessorInfo(struct Data *data) {
+	fprintf(stdout, "Your bots have %d-core processors.\n", data->cores);
+};
+
+void printUpgradeInputError() {
+	fprintf(stdout, "What do you want to upgrade? [cores, power, speed]\n");
 };
