@@ -34,7 +34,7 @@ void printFailedMiningConfirmation() {
 
 void printOpData(struct Data *data) {
 	printCurrentCoinsStored(data);
-	fprintf(stdout, "%d bot%c with %d-core processors mined %d time%c since you last checked.\n", data->bots, getPlural(data->bots), data->cores, getMinesSinceLastCheck(data),getPlural(getMinesSinceLastCheck(data)));
+	fprintf(stdout, "%d bot%c mined %d time%c since you last checked.\n", data->bots, getPlural(data->bots), getMinesSinceLastCheck(data),getPlural(getMinesSinceLastCheck(data)));
 };
 
 void printNewLine() {
@@ -82,9 +82,15 @@ void printUpgradeConfirmationSpeed() {
 };
 
 void printProcessorInfo(struct Data *data) {
-	fprintf(stdout, "Your bots have %d-core processors.\n", data->cores);
+	fprintf(stdout, "Each bot has a %d-core Mackerel brand processor.\n", data->cores);
+	fprintf(stdout, "Your processors have a power rating of 1/%d.\n", data->processor_power);
+	fprintf(stdout, "Your bots mine for coins every %d seconds.\n", data->seconds_between_mining);
 };
 
 void printUpgradeInputError() {
 	fprintf(stdout, "What do you want to upgrade? [cores, power, speed]\n");
+};
+
+void printHashReduction() {
+	fprintf(stdout, "Number of possible hashes reduced.\n");
 };

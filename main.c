@@ -40,8 +40,9 @@ void upgrade(char* arg) {
 	} else if (strcmp(arg, "power") == 0) {
 		if (data->cost_power <= data->coins) {
 			data->coins -= data->cost_power;
-			if (data->processor_power / 10 > data->number_available_hashes) {
-				data->processor_power /= 10;
+			int fewer_power = data->processor_power/10;
+			if (fewer_power > data->number_available_hashes) {
+				data->processor_power -= fewer_power;
 				data->cost_power += 50;
 				printUpgradeConfirmationPower();
 				printProcessorInfo(data);
@@ -56,8 +57,9 @@ void upgrade(char* arg) {
 	} else if (strcmp(arg, "speed") == 0) {
 		if (data->cost_speed <= data->coins) {
 			data->coins -= data->cost_speed;
-			if (data->seconds_between_mining/10 > 1) {
-				data->seconds_between_mining /= 10;
+			int fewer_seconds = data->seconds_between_mining/10;
+			if (fewer_seconds > 1) {
+				data->seconds_between_mining -= fewer_seconds;
 				data->cost_speed += 50;
 				printUpgradeConfirmationSpeed();
 				printProcessorInfo(data);
@@ -124,6 +126,7 @@ int main (int argc, char* argv[]) {
 		printNewLine();
 
 		printOpData(data);
+		printProcessorInfo(data);
 		printNewLine();
 
 		updateLastLogin(data);

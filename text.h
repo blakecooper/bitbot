@@ -35,3 +35,5 @@ void printUpgradeConfirmationSpeed();
 void printProcessorInfo(struct Data *data); 
 
 void printUpgradeInputError(); 
+
+void printHashReduction(); 
