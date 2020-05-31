@@ -57,7 +57,7 @@ void upgrade(char* arg) {
 	} else if (strcmp(arg, "speed") == 0) {
 		if (data->cost_speed <= data->coins) {
 			data->coins -= data->cost_speed;
-			int fewer_seconds = data->seconds_between_mining/10;
+			float fewer_seconds = data->seconds_between_mining/10;
 			if (fewer_seconds > 1) {
 				data->seconds_between_mining -= fewer_seconds;
 				data->cost_speed += 50;
@@ -85,7 +85,7 @@ void read() {
 	fprintf(stdout,"Coins in wallet: %d\n", data->coins);
 	fprintf(stdout,"Total coins mined: %d\n", data->total_coins_mined);
 	fprintf(stdout,"Number of bots: %d\n", data->bots);
-	fprintf(stdout,"Seconds between mining: %d\n", data->seconds_between_mining);
+	fprintf(stdout,"Seconds between mining: %f\n", data->seconds_between_mining);
 	fprintf(stdout,"Number of available hashes: %d\n", data->number_available_hashes);
 	fprintf(stdout,"Cost per bitbot: %d\n", data->cost_bitbot);
 	fprintf(stdout,"Cost to double cores: %d\n", data->cost_cores);
@@ -107,6 +107,8 @@ void parse (int argc, char* argv[]) {
 			};
 		} else if (strcmp(argv[i],"read") == 0) {
 			read();
+		} else if (strcmp(argv[i],"fixfloat") == 0) {
+			data->seconds_between_mining = 18.0;
 		} else {
 		};
 	};

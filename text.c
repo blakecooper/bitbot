@@ -84,7 +84,7 @@ void printUpgradeConfirmationSpeed() {
 void printProcessorInfo(struct Data *data) {
 	fprintf(stdout, "Each bot has a %d-core Mackerel brand processor.\n", data->cores);
 	fprintf(stdout, "Your processors have a power rating of 1/%d.\n", data->processor_power);
-	fprintf(stdout, "Your bots mine for coins every %d seconds.\n", data->seconds_between_mining);
+	fprintf(stdout, "Your bots mine for coins every %f seconds.\n", data->seconds_between_mining);
 };
 
 void printUpgradeInputError() {

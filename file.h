@@ -7,7 +7,7 @@ struct Data {
 	int coins;
 	int total_coins_mined;
 	int bots; 
-	int seconds_between_mining;
+	float seconds_between_mining;
 	int number_available_hashes;
 	int cost_bitbot;
 	int cost_cores;
