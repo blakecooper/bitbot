@@ -107,8 +107,6 @@ void parse (int argc, char* argv[]) {
 			};
 		} else if (strcmp(argv[i],"read") == 0) {
 			read();
-		} else if (strcmp(argv[i],"fixfloat") == 0) {
-			data->seconds_between_mining = 18.0;
 		} else {
 		};
 	};
