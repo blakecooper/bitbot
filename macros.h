@@ -2,7 +2,7 @@
 #define STARTING_CORES 1
 
 //How powerful are the processors (lower is better, it's an inverse)?
-#define STARTING_PROCESSOR_POWER 3000000
+#define STARTING_PROCESSOR_POWER 30000000
 
 //How many bots does the player start with (more is better)?
 #define STARTING_BOTS 1
