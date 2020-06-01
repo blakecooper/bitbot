@@ -40,10 +40,10 @@ void upgrade(char* arg) {
 	} else if (strcmp(arg, "power") == 0) {
 		if (data->cost_power <= data->coins) {
 			data->coins -= data->cost_power;
-			int fewer_power = data->processor_power/10;
+			int fewer_power = data->processor_power/5;
 			if (fewer_power > data->number_available_hashes) {
 				data->processor_power -= fewer_power;
-				data->cost_power += 50;
+				data->cost_power += 20;
 				printUpgradeConfirmationPower();
 				printProcessorInfo(data);
 			} else {

@@ -11,6 +11,13 @@ char getPlural(int number) {
 	};
 };
 
+char getArticle(int number) {
+	if (number == 8) {
+		return 'n';
+	} else {
+		return '\0';
+	};
+};
 
 void printSuccessfulMiningConfirmation(int coins_mined) {
 	fprintf(stdout, "Your bots mined %d coin%c!\n", coins_mined, getPlural(coins_mined));
@@ -82,7 +89,7 @@ void printUpgradeConfirmationSpeed() {
 };
 
 void printProcessorInfo(struct Data *data) {
-	fprintf(stdout, "Each bot has a %d-core Mackerel brand processor.\n", data->cores);
+	fprintf(stdout, "Each bot has a%c %d-core Mackerel brand processor.\n", getArticle(data->cores), data->cores);
 	fprintf(stdout, "Your processors have a power rating of 1/%d.\n", data->processor_power);
 	fprintf(stdout, "Your bots mine for coins every %f seconds.\n", data->seconds_between_mining);
 };
@@ -93,4 +100,8 @@ void printUpgradeInputError() {
 
 void printHashReduction() {
 	fprintf(stdout, "Number of possible hashes reduced.\n");
+};
+
+void printLotteryConfirmation() {
+	fprintf(stdout, "You won the lottery! Your mined coins multiplied by 10!\n");
 };

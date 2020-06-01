@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "text.h"
 #include "file.h"
+#include "macros.h"
 
 int getMinesSinceLastCheck(struct Data *data) {
 	time_t now = time(NULL);
@@ -21,17 +22,25 @@ void mine(struct Data *data, int number_of_passes) {
 		if (processor_guess < hash) {
 			coins_mined++;
 			int new_hash_range = data->number_available_hashes / 5;
-			if (data->number_available_hashes > 1 && hash < new_hash_range) {
-				data->number_available_hashes -= new_hash_range;
+			if (data->total_coins_mined % 50 == 0) {
+				data->number_available_hashes -= (data->number_available_hashes/5);
 				printHashReduction();
 			};
 		};
 	};
 
 	if (coins_mined > 0) {
+
+		int lottery = rand() % LOTTERY_CHANCES;
+		if (lottery == 1) {
+			printLotteryConfirmation();
+			coins_mined *= LOTTERY_MULTIPLIER;
+		};
+		
 		data->coins += coins_mined;
 		data->total_coins_mined += coins_mined;
 		printSuccessfulMiningConfirmation(coins_mined);
+		
 	} else {
 		printFailedMiningConfirmation();
 	};

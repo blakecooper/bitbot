@@ -36,4 +36,6 @@ void printProcessorInfo(struct Data *data);
 
 void printUpgradeInputError(); 
 
-void printHashReduction(); 
+void printHashReduction();
+
+void printLotteryConfirmation();

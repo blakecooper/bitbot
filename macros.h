@@ -2,7 +2,7 @@
 #define STARTING_CORES 1
 
 //How powerful are the processors (lower is better, it's an inverse)?
-#define STARTING_PROCESSOR_POWER 30000000
+#define STARTING_PROCESSOR_POWER 3000000
 
 //How many bots does the player start with (more is better)?
 #define STARTING_BOTS 1
@@ -23,6 +23,12 @@
 #define STARTING_COST_CORES 10
 #define STARTING_COST_POWER 50
 #define STARTING_COST_SPEED 50
+
+//Odds of winning the lottery (one out of...)
+#define LOTTERY_CHANCES 100000
+
+//Lottery multiplier
+#define LOTTERY_MULTIPLIER 10
 
 //How long can the name of a buy option be?
 #define MAX_STRING_LENGTH 32
