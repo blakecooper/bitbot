@@ -21,9 +21,9 @@ void mine(struct Data *data, int number_of_passes) {
 
 		if (processor_guess < hash) {
 			coins_mined++;
-			int new_hash_range = data->number_available_hashes / 5;
+			int new_hash_range = data->number_available_hashes / 10;
 			if (data->total_coins_mined > 50 && hash < new_hash_range) {
-				data->number_available_hashes -= (data->number_available_hashes/5);
+				data->number_available_hashes -= (data->number_available_hashes/10);
 				printHashReduction();
 			};
 		};
