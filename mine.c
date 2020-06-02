@@ -8,14 +8,14 @@ int getMinesSinceLastCheck(struct Data *data) {
 	time_t now = time(NULL);
 	double seconds_elapsed = difftime(now, data->last_login);
 
-	return (seconds_elapsed / data->seconds_between_mining);
+	return (seconds_elapsed / data->seconds_between_mining) * data->bots * data->cores;
 };
 
 void mine(struct Data *data, int number_of_passes) {
 	srand(time(NULL));
 	int coins_mined = 0;
 
-	for (int i = 0; i < number_of_passes * data->bots * data->cores; i++) {
+	for (int i = 0; i < number_of_passes; i++) {
 		int hash = rand() % data->number_available_hashes;
 		int processor_guess = rand() % data->processor_power;
 

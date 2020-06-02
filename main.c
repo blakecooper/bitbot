@@ -128,11 +128,11 @@ int main (int argc, char* argv[]) {
 		parse(argc, argv);
 	} else {
 
+		printNewLine();
 		mine(data, getMinesSinceLastCheck(data));
 		printNewLine();
 
 		printOpData(data);
-		printProcessorInfo(data);
 		printNewLine();
 
 		updateLastLogin(data);
