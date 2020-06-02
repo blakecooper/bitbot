@@ -39,3 +39,7 @@ void printUpgradeInputError();
 void printHashReduction();
 
 void printLotteryConfirmation();
+
+void intro();
+
+void commands();

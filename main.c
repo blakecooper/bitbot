@@ -79,19 +79,23 @@ void upgrade(char* arg) {
 
 void read() {
 	printNewLine();
-	fprintf(stdout,"Data from save file:\n");
-	fprintf(stdout,"Cores per processor: %d\n", data->cores);
-	fprintf(stdout,"Processor power: %d\n", data->processor_power);
 	fprintf(stdout,"Coins in wallet: %d\n", data->coins);
 	fprintf(stdout,"Total coins mined: %d\n", data->total_coins_mined);
 	fprintf(stdout,"Number of bots: %d\n", data->bots);
-	fprintf(stdout,"Seconds between mining: %f\n", data->seconds_between_mining);
+	fprintf(stdout,"Bot speed: %.2f seconds\n", data->seconds_between_mining);
+	fprintf(stdout,"Bot power: 1/%d\n", data->processor_power);
+	fprintf(stdout,"Processor cores per bot: %d\n", data->cores);
 	fprintf(stdout,"Number of available hashes: %d\n", data->number_available_hashes);
 	fprintf(stdout,"Cost per bitbot: %d\n", data->cost_bitbot);
 	fprintf(stdout,"Cost to double cores: %d\n", data->cost_cores);
 	fprintf(stdout,"Cost to upgrade power: %d\n", data->cost_power);
 	fprintf(stdout,"Cost to upgrade speed: %d\n", data->cost_speed);
-	fprintf(stdout,"Time since last login: %ld\n", data->last_login);
+	printNewLine();
+};
+
+void commands () {
+	printNewLine();
+	printCommands();
 	printNewLine();
 };
 
@@ -107,6 +111,8 @@ void parse (int argc, char* argv[]) {
 			};
 		} else if (strcmp(argv[i],"read") == 0) {
 			read();
+		} else if (strcmp(argv[i],"commands") == 0) {
+			commands();
 		} else {
 		};
 	};
