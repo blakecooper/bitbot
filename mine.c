@@ -14,10 +14,11 @@ int getMinesSinceLastCheck(struct Data *data) {
 void mine(struct Data *data, int number_of_passes) {
 	srand(time(NULL));
 	int coins_mined = 0;
+	int clock = data->processor_power;
 
 	for (int i = 0; i < number_of_passes; i++) {
 		int hash = rand() % data->number_available_hashes;
-		int processor_guess = rand() % data->processor_power;
+		int processor_guess = rand() % clock;
 
 		if (processor_guess < hash) {
 			coins_mined++;
@@ -25,6 +26,8 @@ void mine(struct Data *data, int number_of_passes) {
 			if (data->total_coins_mined > 50 && hash < new_hash_range) {
 				data->number_available_hashes -= (data->number_available_hashes/10);
 				printHashReduction();
+			} else {
+				clock -= (clock * .05);
 			};
 		};
 	};
