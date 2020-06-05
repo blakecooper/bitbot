@@ -7,11 +7,19 @@
 
 struct Data *data;
 
+void updateCost(int *cost) {
+	if (*cost > 1) {
+		*cost *= COST_MULTIPLIER;
+	} else {
+		*cost = 2;
+	};
+};
+
 int buy () {
 	if (data->cost_bitbot <= data->coins) {
 		data->coins -= data->cost_bitbot;
 		data->bots ++;
-		data->cost_bitbot = data->cost_bitbot * COST_MULTIPLIER;
+		updateCost(&data->cost_bitbot);
 		return 1;
 	} else {
 		return 0;
@@ -54,7 +62,7 @@ void upgrade(char* arg) {
 		if (data->cost_cores <= data->coins) {
 			data->coins -= data->cost_cores;
 			data->cores *= 2;
-			data->cost_cores *= COST_MULTIPLIER;
+			updateCost(&data->cores);
 			printUpgradeConfirmationCores();
 			printProcessorInfo(data);
 		} else {
@@ -68,7 +76,7 @@ void upgrade(char* arg) {
 			int fewer_power = data->processor_power/5;
 			if ((data->processor_power - fewer_power) > data->number_available_hashes) {
 				data->processor_power -= fewer_power;
-				data->cost_power *= COST_MULTIPLIER;
+				updateCost(&data->power);
 				printUpgradeConfirmationPower();
 				printProcessorInfo(data);
 			} else {
@@ -83,9 +91,13 @@ void upgrade(char* arg) {
 		if (data->cost_speed <= data->coins) {
 			data->coins -= data->cost_speed;
 			float fewer_seconds = data->seconds_between_mining/10;
-			if (fewer_seconds > 1) {
+			if (fewer_seconds < 1) {
+				fewer_seconds = 1;
+			};
+
+			if (data->seconds_between_mining > 1) {
 				data->seconds_between_mining -= fewer_seconds;
-				data->cost_speed *= COST_MULTIPLIER;
+				updateCost(&data->cost_speed);
 				printUpgradeConfirmationSpeed();
 				printProcessorInfo(data);
 			} else {

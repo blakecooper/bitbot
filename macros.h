@@ -1,3 +1,9 @@
+//Definitions for various things in the game, to clean up code
+#define BOTS 1
+#define CORES 2
+#define POWER 3
+#define SPEED 4
+
 //How many processors does the player start with (more is better)?
 #define STARTING_CORES 1
 
