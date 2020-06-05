@@ -76,7 +76,7 @@ void upgrade(char* arg) {
 			int fewer_power = data->processor_power/5;
 			if ((data->processor_power - fewer_power) > data->number_available_hashes) {
 				data->processor_power -= fewer_power;
-				updateCost(&data->power);
+				updateCost(&data->processor_power);
 				printUpgradeConfirmationPower();
 				printProcessorInfo(data);
 			} else {
