@@ -140,7 +140,7 @@ void parse (int argc, char* argv[]) {
 	for (int i = 1; i < argc; i++) {
 		if (strcmp(argv[i],"buy") == 0) {
 			printNewLine();
-			if (i+1 < argc && argv[i+1] == "max") {
+			if (i+1 < argc && strcmp(argv[i+1],"max")) {
 				buyMax();
 			} else {
 				buyOne();

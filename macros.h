@@ -26,7 +26,7 @@
 #define STARTING_COST_BITBOT 1
 
 //Starting costs for processor upgrades
-#define STARTING_COST_CORES 50
+#define STARTING_COST_CORES 20
 #define STARTING_COST_POWER 10
 #define STARTING_COST_SPEED 10
 
