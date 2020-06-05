@@ -62,7 +62,7 @@ void upgrade(char* arg) {
 		if (data->cost_cores <= data->coins) {
 			data->coins -= data->cost_cores;
 			data->cores *= 2;
-			updateCost(&data->cores);
+			updateCost(&data->cost_cores);
 			printUpgradeConfirmationCores();
 			printProcessorInfo(data);
 		} else {
@@ -76,7 +76,7 @@ void upgrade(char* arg) {
 			int fewer_power = data->processor_power/5;
 			if ((data->processor_power - fewer_power) > data->number_available_hashes) {
 				data->processor_power -= fewer_power;
-				updateCost(&data->processor_power);
+				updateCost(&data->cost_power);
 				printUpgradeConfirmationPower();
 				printProcessorInfo(data);
 			} else {
@@ -140,7 +140,7 @@ void parse (int argc, char* argv[]) {
 	for (int i = 1; i < argc; i++) {
 		if (strcmp(argv[i],"buy") == 0) {
 			printNewLine();
-			if (i+1 < argc && strcmp(argv[i+1],"max")) {
+			if (i+1 < argc && strcmp(argv[i+1],"max") == 0) {
 				buyMax();
 			} else {
 				buyOne();
