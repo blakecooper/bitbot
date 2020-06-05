@@ -3,15 +3,23 @@
 #include "file.h"
 #include "mine.h"
 #include "text.h"
+#include "macros.h"
 
 struct Data *data;
 
-void buy () {
-	printNewLine();
+int buy () {
 	if (data->cost_bitbot <= data->coins) {
 		data->coins -= data->cost_bitbot;
 		data->bots ++;
-		data->cost_bitbot = data->cost_bitbot * 2;
+		data->cost_bitbot = data->cost_bitbot * COST_MULTIPLIER;
+		return 1;
+	} else {
+		return 0;
+	};
+};
+
+void buyOne() {
+	if (buy()) {
 		printBuyConfirmationBitbot();
 		printNumberBots(data);
 		printCurrentCoinsStored(data);
@@ -20,7 +28,24 @@ void buy () {
 		printCurrentCoinsStored(data);
 		printCostBitbot(data);
 	};
-	printNewLine();
+};
+
+void buyMax() {
+	int buyCount = 0;
+
+	while (buy()) {
+		buyCount++;
+	};
+
+	if (buyCount > 0) {
+		printBuyConfirmationBitbotNumber(buyCount);
+		printNumberBots(data);
+		printCurrentCoinsStored(data);
+	} else {
+		printNotEnough();
+		printCurrentCoinsStored(data);
+		printCostBitbot(data);
+	};
 };
 
 void upgrade(char* arg) {
@@ -29,7 +54,7 @@ void upgrade(char* arg) {
 		if (data->cost_cores <= data->coins) {
 			data->coins -= data->cost_cores;
 			data->cores *= 2;
-			data->cost_cores *= 10;
+			data->cost_cores *= COST_MULTIPLIER;
 			printUpgradeConfirmationCores();
 			printProcessorInfo(data);
 		} else {
@@ -43,7 +68,7 @@ void upgrade(char* arg) {
 			int fewer_power = data->processor_power/5;
 			if ((data->processor_power - fewer_power) > data->number_available_hashes) {
 				data->processor_power -= fewer_power;
-				data->cost_power += 20;
+				data->cost_power *= COST_MULTIPLIER;
 				printUpgradeConfirmationPower();
 				printProcessorInfo(data);
 			} else {
@@ -60,7 +85,7 @@ void upgrade(char* arg) {
 			float fewer_seconds = data->seconds_between_mining/10;
 			if (fewer_seconds > 1) {
 				data->seconds_between_mining -= fewer_seconds;
-				data->cost_speed += 50;
+				data->cost_speed *= COST_MULTIPLIER;
 				printUpgradeConfirmationSpeed();
 				printProcessorInfo(data);
 			} else {
@@ -102,7 +127,13 @@ void commands () {
 void parse (int argc, char* argv[]) {
 	for (int i = 1; i < argc; i++) {
 		if (strcmp(argv[i],"buy") == 0) {
-			buy();
+			printNewLine();
+			if (i+1 < argc && argv[i+1] == "max") {
+				buyMax();
+			} else {
+				buyOne();
+			};
+			printNewLine();
 		} else if (strcmp(argv[i],"upgrade") == 0) {
 			if (i+1 < argc) {
 				upgrade(argv[i+1]);

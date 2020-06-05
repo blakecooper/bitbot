@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "macros.h"
+#include "text.h"
 
 void readSaveData(FILE *save, struct Data *data) {
 	save = fopen(SAVE_FILE_PATH, "rb");
@@ -19,6 +20,10 @@ void readSaveData(FILE *save, struct Data *data) {
 		data->cost_power = STARTING_COST_POWER;
 		data->cost_speed = STARTING_COST_SPEED;
 		data->last_login = time(NULL);
+		printNewLine();
+		printIntro();
+		printNewLine();
+		printCommands();
 	} else {
 		fread ((void *) data, sizeof(struct Data), 1, save);
 	};

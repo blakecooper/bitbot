@@ -72,6 +72,10 @@ void printBuyConfirmationBitbot() {
 	fprintf(stdout, "You bought a bitbot!\n");
 };
 
+void printBuyConfirmationBitbotNumber(int number) {
+	fprintf(stdout, "You bought %d bitbot%c!\n", number, getPlural(number));
+};
+
 void printNumberBots(struct Data *data) {
 	fprintf(stdout, "You currently have %d bot%c.\n", data->bots, getPlural(data->bots));
 };
@@ -106,7 +110,7 @@ void printLotteryConfirmation() {
 	fprintf(stdout, "You won the lottery! Your mined coins multiplied by 10!\n");
 };
 
-void intro() {
+void printIntro() {
 	fprintf(stdout, "Congratulations! You're the proud owner of a bitbot!\n");
 	fprintf(stdout, "Your bitbot will mine cryptocurrency for you in the background.\n");
 	fprintf(stdout, "For better results, buy more bitbots or upgrade their processors.\n");
@@ -115,6 +119,7 @@ void intro() {
 void printCommands() {
 	fprintf(stdout, "'bitbot': see how many coins your bitbots have mined\n");
 	fprintf(stdout, "'bitbot buy': buy another bitbot\n");
+	fprintf(stdout, "'bitbot buy max': buy as many bitbots as you can afford\n");
 	fprintf(stdout, "'bitbot upgrade cores': double the cores in your bitbots' processors\n");
 	fprintf(stdout, "'bitbot upgrade power': each bitbot works harder to mine coins\n");
 	fprintf(stdout, "'bitbot upgrade speed': each bitbot works faster to mine coins\n");

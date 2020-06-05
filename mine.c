@@ -17,8 +17,19 @@ void mine(struct Data *data, int number_of_passes) {
 	int clock = data->processor_power;
 
 	for (int i = 0; i < number_of_passes; i++) {
-		int hash = rand() % data->number_available_hashes;
-		int processor_guess = rand() % clock;
+		int hash;
+		if (data->number_available_hashes > 0) {
+			hash = rand() % data->number_available_hashes;
+		} else {
+			hash = 0;
+		};
+
+		int processor_guess;
+		if (clock > 0) {
+			processor_guess = rand() % clock;
+		} else {
+			processor_guess = 0;
+		};
 
 		if (processor_guess < hash) {
 			coins_mined++;

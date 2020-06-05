@@ -24,6 +24,8 @@ void printCostUpgradeSpeed (struct Data *data);
 
 void printBuyConfirmationBitbot();
 
+void printBuyConfirmationBitbotNumber(int number);
+
 void printNumberBots(struct Data *data);
 
 void printUpgradeConfirmationCores();
