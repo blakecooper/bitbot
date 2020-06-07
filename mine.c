@@ -11,10 +11,20 @@ int getMinesSinceLastCheck(struct Data *data) {
 	return (seconds_elapsed / data->seconds_between_mining) * data->bots * data->cores;
 };
 
+int reduceAvailableHashes(struct Data *data, int coinsMined) {
+	if ((data->total_coins_mined + coinsMined) % 1000 == 0) {
+		data->number_available_hashes--;
+		return 1;
+	} else {
+		return 0;
+	};
+};
+
 void mine(struct Data *data, int number_of_passes) {
 	srand(time(NULL));
 	int coins_mined = 0;
 	int clock = data->processor_power;
+	int hashesReduced = 0;
 
 	for (int i = 0; i < number_of_passes; i++) {
 		int hash;
@@ -33,12 +43,8 @@ void mine(struct Data *data, int number_of_passes) {
 
 		if (processor_guess < hash) {
 			coins_mined++;
-			int new_hash_range = data->number_available_hashes / 10;
-			if (data->total_coins_mined > 50 && hash < new_hash_range) {
-				data->number_available_hashes -= (data->number_available_hashes/10);
-				printHashReduction();
-			} else {
-				clock -= (clock * .05);
+			if (data->number_available_hashes > 1) {
+				hashesReduced += reduceAvailableHashes(data, coins_mined);
 			};
 		};
 	};
@@ -57,5 +63,9 @@ void mine(struct Data *data, int number_of_passes) {
 		
 	} else {
 		printFailedMiningConfirmation();
+	};
+	
+	if (hashesReduced) {
+		printHashReduction();
 	};
 };

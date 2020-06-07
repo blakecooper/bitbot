@@ -59,16 +59,20 @@ void buyMax() {
 void upgrade(char* arg) {
 	printNewLine();
 	if (strcmp(arg, "cores") == 0) {
-		if (data->cost_cores <= data->coins) {
-			data->coins -= data->cost_cores;
-			data->cores *= 2;
-			updateCost(&data->cost_cores);
-			printUpgradeConfirmationCores();
-			printProcessorInfo(data);
+		if (data->cores < 128) {
+			if (data->cost_cores <= data->coins) {
+				data->coins -= data->cost_cores;
+				data->cores *= 2;
+				updateCost(&data->cost_cores);
+				printUpgradeConfirmationCores();
+				printProcessorInfo(data);
+			} else {
+				printNotEnough();
+				printCurrentCoinsStored(data);
+				printCostUpgrade(data);
+			};
 		} else {
-			printNotEnough();
-			printCurrentCoinsStored(data);
-			printCostUpgrade(data);
+			fprintf(stdout, "Processors cores already maxed out!");
 		};
 	} else if (strcmp(arg, "power") == 0) {
 		if (data->cost_power <= data->coins) {
@@ -116,9 +120,9 @@ void upgrade(char* arg) {
 
 void read() {
 	printNewLine();
-	fprintf(stdout,"Coins in wallet: %d\n", data->coins);
-	fprintf(stdout,"Total coins mined: %d\n", data->total_coins_mined);
-	fprintf(stdout,"Number of bots: %d\n", data->bots);
+	fprintf(stdout,"Coins in wallet: %lld\n", data->coins);
+	fprintf(stdout,"Total coins mined: %lld\n", data->total_coins_mined);
+	fprintf(stdout,"Number of bots: %lld\n", data->bots);
 	fprintf(stdout,"Bot speed: %.2f seconds\n", data->seconds_between_mining);
 	fprintf(stdout,"Bot power: 1/%d\n", data->processor_power);
 	fprintf(stdout,"Processor cores per bot: %d\n", data->cores);

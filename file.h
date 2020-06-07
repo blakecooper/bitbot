@@ -4,9 +4,9 @@
 struct Data {
 	int cores;
 	int processor_power;
-	int coins;
-	int total_coins_mined;
-	int bots; 
+	unsigned long long int coins;
+	unsigned long long int total_coins_mined;
+	unsigned long long int bots; 
 	float seconds_between_mining;
 	int number_available_hashes;
 	int cost_bitbot;

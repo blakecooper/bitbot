@@ -25,9 +25,9 @@ void printSuccessfulMiningConfirmation(int coins_mined) {
 
 void printCurrentCoinsStored(struct Data *data) {
 	if (getPlural(data->coins) == 's') {
-		fprintf(stdout, "There are %d coins in your wallet.\n", data->coins);
+		fprintf(stdout, "There are %lld coins in your wallet.\n", data->coins);
 	} else {
-		fprintf(stdout, "There is %d coin in your wallet.\n", data->coins);
+		fprintf(stdout, "There is %lld coin in your wallet.\n", data->coins);
 	};
 };
 
@@ -41,7 +41,7 @@ void printFailedMiningConfirmation() {
 
 void printOpData(struct Data *data) {
 	printCurrentCoinsStored(data);
-	fprintf(stdout, "%d bot%c mined a total of %d time%c since you last checked.\n", data->bots, getPlural(data->bots), getMinesSinceLastCheck(data),getPlural(getMinesSinceLastCheck(data)));
+	fprintf(stdout, "%lld bot%c mined a total of %d time%c since you last checked.\n", data->bots, getPlural(data->bots), getMinesSinceLastCheck(data),getPlural(getMinesSinceLastCheck(data)));
 };
 
 void printNewLine() {
@@ -77,7 +77,7 @@ void printBuyConfirmationBitbotNumber(int number) {
 };
 
 void printNumberBots(struct Data *data) {
-	fprintf(stdout, "You currently have %d bot%c.\n", data->bots, getPlural(data->bots));
+	fprintf(stdout, "You currently have %lld bot%c.\n", data->bots, getPlural(data->bots));
 };
 
 void printUpgradeConfirmationCores() {
