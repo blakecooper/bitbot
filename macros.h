@@ -45,3 +45,6 @@
 
 //Save location
 #define SAVE_FILE_PATH "save"
+
+//Number of mining passes at which algorithm switches from random to fractional (to improve performance)
+#define RANDOMNESS_THRESHOLD 100000

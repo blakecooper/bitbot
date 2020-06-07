@@ -20,35 +20,53 @@ int reduceAvailableHashes(struct Data *data, int coinsMined) {
 	};
 };
 
-void mine(struct Data *data, int number_of_passes) {
-	srand(time(NULL));
+int reduceAvailableHashesByRatioOfCoins(struct Data *data, int coinsMined) {
+	data->number_available_hashes-= (coinsMined % 1000);
+	return 1;
+};
+
+int generateHash (struct Data *data) {
+	if (data->number_available_hashes > 0) {
+		return rand() % data->number_available_hashes;
+	} else {
+		return 0;
+	};	
+};
+
+int generateProcessorGuess (struct Data *data) {
+	if (data->processor_power > 0) {
+		return rand() % data->processor_power;
+	} else {
+		return 0;
+	};
+};
+
+void mine (struct Data *data, int number_of_passes) {
 	int coins_mined = 0;
-	int clock = data->processor_power;
-	int hashesReduced = 0;
+	int hashes_reduced = 0;
 
-	for (int i = 0; i < number_of_passes; i++) {
-		int hash;
-		if (data->number_available_hashes > 0) {
-			hash = rand() % data->number_available_hashes;
-		} else {
-			hash = 0;
-		};
-
-		int processor_guess;
-		if (clock > 0) {
-			processor_guess = rand() % clock;
-		} else {
-			processor_guess = 0;
-		};
-
-		if (processor_guess < hash) {
-			coins_mined++;
-			if (data->number_available_hashes > 1) {
-				hashesReduced += reduceAvailableHashes(data, coins_mined);
+	if (number_of_passes < RANDOMNESS_THRESHOLD) {
+		srand(time(NULL));
+		
+		for (int i = 0; i < number_of_passes; i++) {
+			int hash = generateHash(data);
+			int processor_guess = generateProcessorGuess(data);
+	
+			if (processor_guess < hash) {
+				coins_mined++;
+				if (data->number_available_hashes > 1) {
+					hashes_reduced += reduceAvailableHashes(data, coins_mined);
+				};
 			};
 		};
+	} else {
+		float odds = data->number_available_hashes / data->processor_power;
+		coins_mined = number_of_passes * odds;
+		if (coins_mined > 1) {
+			hashes_reduced = reduceAvailableHashesByRatioOfCoins(data, coins_mined);
+		};
 	};
-
+	
 	if (coins_mined > 0) {
 
 		int lottery = rand() % LOTTERY_CHANCES;
@@ -65,7 +83,7 @@ void mine(struct Data *data, int number_of_passes) {
 		printFailedMiningConfirmation();
 	};
 	
-	if (hashesReduced) {
+	if (hashes_reduced) {
 		printHashReduction();
 	};
 };
