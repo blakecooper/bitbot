@@ -60,7 +60,7 @@ void mine (struct Data *data, int number_of_passes) {
 			};
 		};
 	} else {
-		float odds = data->number_available_hashes / data->processor_power;
+		float odds = (float) data->number_available_hashes / (float) data->processor_power;
 		coins_mined = number_of_passes * odds;
 		if (coins_mined > 1) {
 			hashes_reduced = reduceAvailableHashesByRatioOfCoins(data, coins_mined);
