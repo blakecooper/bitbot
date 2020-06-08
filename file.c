@@ -13,6 +13,10 @@ void readSaveData(FILE *save, struct Data *data) {
 		data->coins = STARTING_COINS;	
 		data->total_coins_mined = STARTING_COINS;
 		data->bots = STARTING_BOTS;
+		data->account = 0;
+		data->rate = 1.0;
+		data->rate_last_movement = PLUS;
+		data->rate_last_changed = time(NULL);
 		data->seconds_between_mining = STARTING_SECONDS_BETWEEN_MINING;
 		data->number_available_hashes = STARTING_NUMBER_POSSIBLE_HASHES;
 		data->cost_bitbot = STARTING_COST_BITBOT;

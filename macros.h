@@ -4,6 +4,12 @@
 #define POWER 3
 #define SPEED 4
 
+//Definitions for plus and minus for market purposes
+#define PLUS 1
+
+//How many minutes in a day
+#define ONE_DAY 86400
+
 //How many processors does the player start with (more is better)?
 #define STARTING_CORES 1
 

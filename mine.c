@@ -21,7 +21,7 @@ int reduceAvailableHashes(struct Data *data, int coinsMined) {
 };
 
 int reduceAvailableHashesByRatioOfCoins(struct Data *data, int coinsMined) {
-	data->number_available_hashes-= (coinsMined % 1000);
+	data->number_available_hashes -= (coinsMined % 1000);
 	return 1;
 };
 

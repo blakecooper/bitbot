@@ -124,4 +124,33 @@ void printCommands() {
 	fprintf(stdout, "'bitbot upgrade power': each bitbot works harder to mine coins\n");
 	fprintf(stdout, "'bitbot upgrade speed': each bitbot works faster to mine coins\n");
 	fprintf(stdout, "'bitbot read': see all your stats\n");
+	fprintf(stdout, "'bitbot bank deposit': convert coins to cash\n");
+	fprintf(stdout, "'bitbot bank withdraw': convert cash to coins\n");
+	fprintf(stdout, "'bitbot bank rate': see today's conversion rate\n");
+	fprintf(stdout, "'bitbot bank account': see your bank account balance\n");
+};
+
+void printAccount(struct Data *data) {
+	fprintf(stdout, "You currently have $%lld USD in your bank account", data->account);
+};
+
+void printRate(struct Data *data) {
+	fprintf(stdout, "The coins-to-cash conversion rate is currently %f", data->rate);
+};
+
+void printBankInputError() {
+	fprintf(stdout, "What do you want to do [deposit, withdraw, rate, account]?");
+};
+void printDepositConfirmation(struct Data *data) {
+	fprintf(stdout, "Deposit successful at %f rate! You have $%lld USD in your account", data->rate, data->account);
+};
+
+void printDepositError() {
+	fprintf(stdout, "You don't have any coins to deposit!");
+};
+void printWithdrawConfirmation(struct Data *data) {
+	fprintf(stdout, "Withdraw successful at %f rate! You have %lld coins in your wallet", data->rate, data->coins);
+};
+void printWithdrawError() {
+	fprintf(stdout, "You don't have any cash in your accont to withdraw!");
 };

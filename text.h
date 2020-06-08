@@ -45,3 +45,17 @@ void printLotteryConfirmation();
 void intro();
 
 void commands();
+
+void printAccount(struct Data *data);
+
+void printRate(struct Data *data);
+
+void printBankInputError();
+
+void printDepositConfirmation(struct Data *data);
+
+void printDepositError();
+
+void printWithdrawConfirmation(struct Data *data);
+
+void printWithdrawError();

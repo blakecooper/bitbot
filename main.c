@@ -4,6 +4,7 @@
 #include "mine.h"
 #include "text.h"
 #include "macros.h"
+#include "bank.h"
 
 struct Data *data;
 
@@ -131,6 +132,8 @@ void read() {
 	fprintf(stdout,"Cost to double cores: %d\n", data->cost_cores);
 	fprintf(stdout,"Cost to upgrade power: %d\n", data->cost_power);
 	fprintf(stdout,"Cost to upgrade speed: %d\n", data->cost_speed);
+	fprintf(stdout,"Cash in bank: $%lld USD\n", data->account);
+	fprintf(stdout,"Current market rate: %f\n", data->rate);
 	printNewLine();
 };
 
@@ -160,6 +163,30 @@ void parse (int argc, char* argv[]) {
 			read();
 		} else if (strcmp(argv[i],"commands") == 0) {
 			commands();
+		} else if (strcmp(argv[i],"bank") == 0) {
+			if (i+1 < argc) {
+				if (strcmp(argv[i+1],"deposit") == 0) {
+					if (data->coins > 0) {
+						deposit(data);
+						printDepositConfirmation(data);
+					} else {
+						printDepositError();
+					};
+				} else if (strcmp(argv[i+1],"withdraw") == 0) {
+					if (data->account > 0) {
+						withdraw(data);
+						printWithdrawConfirmation(data);
+					} else {
+						printWithdrawError();
+					};
+				} else if (strcmp(argv[i+1],"rate") == 0) {
+					printRate(data);
+				} else if (strcmp(argv[i+1],"account") == 0) {
+					printAccount(data);
+				} else {
+					printBankInputError();
+				};
+			};
 		} else {
 		};
 	};
@@ -186,6 +213,8 @@ int main (int argc, char* argv[]) {
 	};
 
 	writeSaveData(savefile, data);
-	
+
+	free(data);
+
 	return 0;
 };

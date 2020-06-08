@@ -7,6 +7,10 @@ struct Data {
 	unsigned long long int coins;
 	unsigned long long int total_coins_mined;
 	unsigned long long int bots; 
+	unsigned long long int account;
+	float rate;
+	int rate_last_movement;
+	time_t rate_last_changed;
 	float seconds_between_mining;
 	int number_available_hashes;
 	int cost_bitbot;
