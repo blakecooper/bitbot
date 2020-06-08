@@ -131,26 +131,26 @@ void printCommands() {
 };
 
 void printAccount(struct Data *data) {
-	fprintf(stdout, "You currently have $%lld USD in your bank account", data->account);
+	fprintf(stdout, "You currently have $%lld USD in your bank account\n", data->account);
 };
 
 void printRate(struct Data *data) {
-	fprintf(stdout, "The coins-to-cash conversion rate is currently %f", data->rate);
+	fprintf(stdout, "The coins-to-cash conversion rate is currently %f\n", data->rate);
 };
 
 void printBankInputError() {
-	fprintf(stdout, "What do you want to do [deposit, withdraw, rate, account]?");
+	fprintf(stdout, "What do you want to do [deposit, withdraw, rate, account]?\n");
 };
 void printDepositConfirmation(struct Data *data) {
-	fprintf(stdout, "Deposit successful at %f rate! You have $%lld USD in your account", data->rate, data->account);
+	fprintf(stdout, "Deposit successful at %f rate! You have $%lld USD in your account\n", data->rate, data->account);
 };
 
 void printDepositError() {
-	fprintf(stdout, "You don't have any coins to deposit!");
+	fprintf(stdout, "You don't have any coins to deposit!\n");
 };
 void printWithdrawConfirmation(struct Data *data) {
-	fprintf(stdout, "Withdraw successful at %f rate! You have %lld coins in your wallet", data->rate, data->coins);
+	fprintf(stdout, "Withdraw successful at %f rate! You have %lld coins in your wallet\n", data->rate, data->coins);
 };
 void printWithdrawError() {
-	fprintf(stdout, "You don't have any cash in your accont to withdraw!");
+	fprintf(stdout, "You don't have any cash in your accont to withdraw!\n");
 };
