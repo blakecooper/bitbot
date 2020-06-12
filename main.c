@@ -61,23 +61,23 @@ void upgrade(char* arg) {
 	printNewLine();
 	if (strcmp(arg, "cores") == 0) {
 		if (data->cores < 128) {
-			if (data->cost_cores <= data->coins) {
-				data->coins -= data->cost_cores;
+			if (data->cost_cores <= data->account) {
+				data->account -= data->cost_cores;
 				data->cores *= 2;
 				updateCost(&data->cost_cores);
 				printUpgradeConfirmationCores();
 				printProcessorInfo(data);
 			} else {
 				printNotEnough();
-				printCurrentCoinsStored(data);
+				printAccount(data);
 				printCostUpgrade(data);
 			};
 		} else {
 			fprintf(stdout, "Processors cores already maxed out!");
 		};
 	} else if (strcmp(arg, "power") == 0) {
-		if (data->cost_power <= data->coins) {
-			data->coins -= data->cost_power;
+		if (data->cost_power <= data->account) {
+			data->account -= data->cost_power;
 			int fewer_power = data->processor_power/5;
 			if ((data->processor_power - fewer_power) > data->number_available_hashes) {
 				data->processor_power -= fewer_power;
@@ -89,12 +89,12 @@ void upgrade(char* arg) {
 			};
 		} else {
 			printNotEnough();
-			printCurrentCoinsStored(data);
+			printAccount(data);
 			printCostUpgradePower(data);
 		};
 	} else if (strcmp(arg, "speed") == 0) {
-		if (data->cost_speed <= data->coins) {
-			data->coins -= data->cost_speed;
+		if (data->cost_speed <= data->account) {
+			data->account -= data->cost_speed;
 			float fewer_seconds = data->seconds_between_mining/10;
 			if (fewer_seconds < 1) {
 				fewer_seconds = 1;
@@ -110,7 +110,7 @@ void upgrade(char* arg) {
 			};
 		} else {
 			printNotEnough();
-			printCurrentCoinsStored(data);
+			printAccount(data);
 			printCostUpgradeSpeed(data);
 		};
 	} else {

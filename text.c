@@ -3,6 +3,10 @@
 #include "mine.h"
 #include "macros.h"
 
+float getConversionRate(struct Data *data) {
+	return ((float) 1/data->rate);
+};
+
 char getPlural(int number) {
 	if (number != 1) {
 		return 's';
@@ -57,15 +61,15 @@ void printCostBitbot (struct Data *data) {
 };
 
 void printCostUpgrade (struct Data *data) {
-	fprintf(stdout, "Upgrading your processors costs %d coin%c\n", data->cost_cores, getPlural(data->cost_bitbot));
+	fprintf(stdout, "Upgrading your processors costs $%d\n", data->cost_cores);
 };
 
 void printCostUpgradePower (struct Data *data) {
-	fprintf(stdout, "Upgrading your processor power costs %d coin%c\n", data->cost_power, getPlural(data->cost_power));
+	fprintf(stdout, "Upgrading your processor power costs $%d\n", data->cost_power);
 };
 
 void printCostUpgradeSpeed (struct Data *data) {
-	fprintf(stdout, "Upgrading your processor speed costs %d coin%c\n", data->cost_speed, getPlural(data->cost_speed));
+	fprintf(stdout, "Upgrading your processor speed costs $%d\n", data->cost_speed);
 };
 
 void printBuyConfirmationBitbot() {
@@ -85,7 +89,7 @@ void printUpgradeConfirmationCores() {
 };
 
 void printUpgradeConfirmationPower() {
-	fprintf(stdout, "Your processors are 10 percent more powerful!\n");
+	fprintf(stdout, "Your processors are 20 percent more powerful!\n");
 };
 
 void printUpgradeConfirmationSpeed() {
@@ -135,7 +139,8 @@ void printAccount(struct Data *data) {
 };
 
 void printRate(struct Data *data) {
-	fprintf(stdout, "The coins-to-cash conversion rate is currently %f\n", data->rate);
+	fprintf(stdout, "One coin is currently worth $%.2f\n", data->rate);
+	fprintf(stdout, "$1 currently buys %.4f coins\n", getConversionRate(data));
 };
 
 void printBankInputError() {

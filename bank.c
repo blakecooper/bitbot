@@ -6,7 +6,9 @@
 
 void calculateMarketRate(struct Data *data) {
 	time_t now = time(NULL);
-	if ((now - data->last_login) > ONE_DAY) {
+	if ((now - data->rate_last_changed) > ONE_DAY) {
+		data->rate_last_changed = now;
+
 		float new_rate;
 
 		int chances_of_market_direction = rand() % 10;

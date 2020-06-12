@@ -32,13 +32,13 @@
 #define STARTING_COST_BITBOT 1
 
 //Starting costs for processor upgrades
-#define STARTING_COST_CORES 20
-#define STARTING_COST_POWER 10
+#define STARTING_COST_CORES 1000
+#define STARTING_COST_POWER 100
 #define STARTING_COST_SPEED 10
 
 //Cost multiplier every time something is purchased
 //Applies to all buys and upgrades (for now)
-#define COST_MULTIPLIER 1.5
+#define COST_MULTIPLIER 1.3
 
 //Odds of winning the lottery (one out of...)
 #define LOTTERY_CHANCES 100000
@@ -53,4 +53,4 @@
 #define SAVE_FILE_PATH "save"
 
 //Number of mining passes at which algorithm switches from random to fractional (to improve performance)
-#define RANDOMNESS_THRESHOLD 100000
+#define RANDOMNESS_THRESHOLD 1000000
